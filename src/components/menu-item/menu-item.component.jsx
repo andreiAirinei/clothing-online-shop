@@ -1,9 +1,21 @@
 import React from 'react';
 
+// Higher Order Component
+// It's a function that takes any Component as an argument and returns a modified component
+// A function that gives you back a powered up Component
+
+// This withRouter will make us avoid props tunneling / drilling
+import { withRouter } from 'react-router-dom';
+
 import './menu-item.styles.scss';
 
-const MenuItem = ({ title, imageUrl, size }) => (
-  <div className={`menu-item ${size}`}>
+// match - is the current directory we are in ?!
+const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
+  <div
+    className={`menu-item ${size}`}
+    // URL history
+    onClick={() => history.push(`${match.url}${linkUrl}`)}
+  >
     <div
       className='background-image'
       style={{
@@ -17,4 +29,5 @@ const MenuItem = ({ title, imageUrl, size }) => (
   </div>
 );
 
-export default MenuItem;
+// Return a superpowered MenuItem Component with access now to those locations, maps and history props that we need access to
+export default withRouter(MenuItem);
