@@ -37,8 +37,10 @@ const Header = ({ currentUser }) => (
 );
 
 // this state is the root reducer
+// can be named as we please, but mapStateToProps is standard with redux codebases
 const mapStateToProps = state => ({
   currentUser: state.user.currentUser
 });
 
+// connect - allows us to access the state, with the state being our root reducer
 export default connect(mapStateToProps)(Header);
