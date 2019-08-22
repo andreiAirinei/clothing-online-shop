@@ -4,11 +4,16 @@ import { Link } from 'react-router-dom';
 // connect - is a HOC
 import { connect } from 'react-redux';
 
+import { createStructuredSelector } from 'reselect';
+
 import { auth } from '../../firebase/firebase.utils';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
@@ -43,10 +48,21 @@ const Header = ({ currentUser, hidden }) => (
 );
 
 // this state is the root reducer
-// can be named as we please, but mapStateToProps is standard with redux codebases
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+//   currentUser,
+//   hidden
+// });
+
+// ###### New mapStateToProps after using RESELECT / SELECTORS
+// const mapStateToProps = state => ({
+//   currentUser: selectCurrentUser(state),
+//   hidden: selectCartHidden(state)
+// });
+
+// SAME - we don't need to pass state with createStructuredSelector
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
 });
 
 // connect - allows us to access the state, with the state being our root reducer
