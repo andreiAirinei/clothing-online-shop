@@ -1,5 +1,9 @@
-import { CartActionTypes } from './cart.types';
-import { addItemToCart } from './cart.utils';
+import CartActionTypes from './cart.types';
+import {
+  addItemToCart,
+  removeItemFromCart,
+  decreaseItemQuantity
+} from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true,
@@ -20,6 +24,19 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         // cartItems: [...state.cartItems, action.payload]
         // new code because of quantity
         cartItems: addItemToCart(state.cartItems, action.payload)
+      };
+
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        // We could have put the function right here, without importing it
+        cartItems: removeItemFromCart(state.cartItems, action.payload)
+      };
+
+    case CartActionTypes.DECREASE_ITEM_QUANTITY:
+      return {
+        ...state,
+        cartItems: decreaseItemQuantity(state.cartItems, action.payload)
       };
 
     default:

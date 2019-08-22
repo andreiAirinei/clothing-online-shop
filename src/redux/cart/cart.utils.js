@@ -19,3 +19,26 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   // This runs first when a new item is added to the cart
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
+
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  // Return the Cart without the item that we want to remove
+  return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
+};
+
+export const decreaseItemQuantity = (cartItems, cartItemToDecrease) => {
+  const existingCartItem = cartItems.find(
+    cartItem => cartItem.id === cartItemToDecrease.id
+  );
+
+  // If the quantity of the item that it is about to be decreased is equal to 1, then just remove it from the cart
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter(cartItem => cartItem.id !== cartItemToDecrease.id);
+  }
+
+  // If the quantity of the item that it is about to be decreased is greater than 1, then decrease the quantity
+  return cartItems.map(cartItem =>
+    cartItem.id === cartItemToDecrease.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
