@@ -38,7 +38,6 @@ const Header = ({ currentUser, hidden }) => (
         <OptionLink
           // as='div' - cons: will cancel the 'to=/' from Link
           as='div'
-          className='option'
           onClick={() => auth.signOut()}
           to='/'
         >
