@@ -4,7 +4,12 @@ import logger from 'redux-logger';
 
 import rootReducer from './root-reducer';
 
-const middlewares = [logger];
+const middlewares = [];
+
+// set the logger only for development
+if (process.env.NODE_ENV === 'development') {
+  middlewares.push(logger);
+}
 
 // @...middlewares - It will spread all of the methods/values from the array into individual arguments
 
