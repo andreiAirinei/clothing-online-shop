@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
 // connect - is a HOC
 import { connect } from 'react-redux';
 
@@ -17,34 +16,41 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-import './header.styles.scss';
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionsContainer,
+  OptionLink
+} from './header.styles';
+
+// import './header.styles.scss';
 
 const Header = ({ currentUser, hidden }) => (
-  <div className='header'>
-    <Link className='logo-container' to='/'>
+  <HeaderContainer>
+    <LogoContainer to='/'>
       <Logo className='logo' />
-    </Link>
-    <div className='options'>
-      <Link className='option' to='/shop'>
-        SHOP
-      </Link>
-      <Link className='option' to='/shop'>
-        CONTACT
-      </Link>
+    </LogoContainer>
+    <OptionsContainer>
+      <OptionLink to='/shop'>SHOP</OptionLink>
+      <OptionLink to='/shop'>CONTACT</OptionLink>
       {/* Sign in / Log Out */}
       {currentUser ? (
-        <Link className='option' onClick={() => auth.signOut()} to='/'>
+        <OptionLink
+          // as='div' - cons: will cancel the 'to=/' from Link
+          as='div'
+          className='option'
+          onClick={() => auth.signOut()}
+          to='/'
+        >
           SIGN OUT
-        </Link>
+        </OptionLink>
       ) : (
-        <Link className='option' to='/signin'>
-          SIGN IN
-        </Link>
+        <OptionLink to='/signin'>SIGN IN</OptionLink>
       )}
       <CartIcon />
-    </div>
+    </OptionsContainer>
     {hidden ? null : <CartDropdown />}
-  </div>
+  </HeaderContainer>
 );
 
 // this state is the root reducer
@@ -67,3 +73,35 @@ const mapStateToProps = createStructuredSelector({
 
 // connect - allows us to access the state, with the state being our root reducer
 export default connect(mapStateToProps)(Header);
+
+// ### BEFORE CSS in JS
+
+// import './header.styles.scss';
+
+// const Header = ({ currentUser, hidden }) => (
+//   <div className='header'>
+//     <Link className='logo-container' to='/'>
+//       <Logo className='logo' />
+//     </Link>
+//     <div className='options'>
+//       <Link className='option' to='/shop'>
+//         SHOP
+//       </Link>
+//       <Link className='option' to='/shop'>
+//         CONTACT
+//       </Link>
+//       {/* Sign in / Log Out */}
+//       {currentUser ? (
+//         <Link className='option' onClick={() => auth.signOut()} to='/'>
+//           SIGN OUT
+//         </Link>
+//       ) : (
+//         <Link className='option' to='/signin'>
+//           SIGN IN
+//         </Link>
+//       )}
+//       <CartIcon />
+//     </div>
+//     {hidden ? null : <CartDropdown />}
+//   </div>
+// );
