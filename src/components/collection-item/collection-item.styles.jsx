@@ -55,3 +55,12 @@ export const CollectionFooterContainer = styled.div`
     width: 10%;
   }
 `;
+
+export const SpanName = styled.span`
+  width: 90%;
+  margin-bottom: 15px;
+`;
+
+export const SpanPrice = styled.span`
+  width: 10%;
+`;
