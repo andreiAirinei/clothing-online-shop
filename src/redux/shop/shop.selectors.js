@@ -12,14 +12,16 @@ export const selectCollections = createSelector(
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
   // Get all the keys and then map over the array of keys so that we can get the value of the collection object of that key
-  collections => Object.keys(collections).map(key => collections[key])
+  collections =>
+    // If collections exists then call Object.keys, else return an empty version of our collections
+    collections ? Object.keys(collections).map(key => collections[key]) : []
 );
 
 // function that returns another function
 export const selectCollection = collectionUrlParam =>
   createSelector(
     [selectCollections],
-    collections => collections[collectionUrlParam]
+    collections => (collections ? collections[collectionUrlParam] : null)
   );
 
 // ### OLD WAY before changing SHOP_ITEMS to object

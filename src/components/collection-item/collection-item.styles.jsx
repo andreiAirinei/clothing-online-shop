@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import CustomButton from '../custom-button/custom-button.component';
 
 // Order matters as we could have not been able to access the hover effect in CollectionItemContainer
