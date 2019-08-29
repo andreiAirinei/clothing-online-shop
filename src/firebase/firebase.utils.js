@@ -19,8 +19,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
   // else do
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+  // For testint purposes 1
+  const collectionRef = firestore.collection('users');
 
   const snapShot = await userRef.get();
+  // For testint purposes 2
+  const collectionSnapshot = await collectionRef.get();
+  // For testint purposes 3
+  console.log({ collection: collectionSnapshot.docs.map(doc => doc.data()) });
 
   // Check if the user from Auth library does not exist in the firestore database
   if (!snapShot.exists) {
@@ -46,6 +52,34 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   // Always return us our userRef as we may need to do something else with it
   return userRef;
+};
+
+// We use this function whenever we want to add to firebase
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  // console.log(collectionRef);
+  // console.log(objectsToAdd);
+
+  // we need to group ...?... internet connection something
+  const batch = firestore.batch();
+
+  // Loop through the array and batch these calls together
+  objectsToAdd.forEach(obj => {
+    // It is telling firebase: Give me a new document reference in this collection and randomly generate and ID for it
+    // we can also pass the title if we want
+    // e.g: const newDocRef = collectionRef.doc(obj.title); => Mens, Jackets...
+    // BUT we want this ID to be unique
+    const newDocRef = collectionRef.doc();
+    // before: newDocRef.set, but now
+    batch.set(newDocRef, obj);
+  });
+
+  // Fire off our batch request which returns a PROMISE
+  // When commit succeeds, it will come back and resolve a void / null value
+  return await batch.commit();
 };
 
 firebase.initializeApp(config);

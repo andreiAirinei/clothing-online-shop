@@ -10,11 +10,17 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckOutPage from './pages/checkout/checkout.component';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument
+  // addCollectionAndDocuments
+} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 // Even though we only have ONE selectet property, we should still use createStructuredSelector because in the future we need to pull in more, it would be easy to add more
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { createStructuredSelector } from 'reselect';
+
+// import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -41,6 +47,11 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
+      // Pass ONLY just the properties that we want, NOT all of them (use destructuring)
+      // addCollectionAndDocuments(
+      //   'collections',
+      //   collectionsArray.map(({ title, items }) => ({ title, items }))
+      // );
     });
   }
 

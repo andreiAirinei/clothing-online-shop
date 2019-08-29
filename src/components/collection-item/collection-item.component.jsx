@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-// import CustomButton from '../custom-button/custom-button.component';
 import { addItem } from '../../redux/cart/cart.actions';
 
-// import './collection-item.styles.scss';
 import {
   CollectionItemContainer,
   ImageContainer,
@@ -45,6 +43,7 @@ export default connect(
 
 // ### BEFORE CSS in JS
 // import './collection-item.styles.scss';
+// import CustomButton from '../custom-button/custom-button.component';
 
 // const CollectionItem = ({ item, addItem }) => {
 //   const { name, price, imageUrl } = item;
