@@ -63,6 +63,8 @@ class App extends React.Component {
     return (
       <div>
         <Header />
+        {/* Switch - The moment that a route inside of it finds a match in the path, it deos not render anything else but that route (like break;)
+         */}
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />

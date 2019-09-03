@@ -17,7 +17,7 @@ import {
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
-// We get map, location & history props from App.js as we use Router
+// We get map, match, location & history props from App.js as we use Router
 
 class ShopPage extends React.Component {
   state = {
@@ -49,7 +49,9 @@ class ShopPage extends React.Component {
             <CollectionsOverviewWithSpinner isLoading={loading} {...props} />
           )}
         />
-        {/* It allows us to acces the categoryId as a parameter, which is the string of hats / sneakers... */}
+        {/* It allows us to acces the categoryId as a parameter, which is the string of hats / sneakers... 
+            collectionId - name defined by me
+        */}
         <Route
           path={`${match.path}/:collectionId`}
           render={props => (
