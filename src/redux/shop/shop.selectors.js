@@ -24,6 +24,16 @@ export const selectCollection = collectionUrlParam =>
     collections => (collections ? collections[collectionUrlParam] : null)
   );
 
+export const selectIsFetchingCollections = createSelector(
+  [selectShop],
+  shop => shop.isFetching
+);
+
+export const selectIsCollectionsLoaded = createSelector(
+  [selectShop],
+  // Double !! returns true or false if it is empty or not
+  shop => !!shop.collections
+);
 // ### OLD WAY before changing SHOP_ITEMS to object
 // An object that maps the string value to the respective ID where the string value that we are getting from our URL, will be the actual property
 // hats with ID of 1
