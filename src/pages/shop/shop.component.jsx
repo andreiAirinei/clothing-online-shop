@@ -29,8 +29,14 @@ class ShopPage extends React.Component {
   componentDidMount() {
     const { updateCollections } = this.props;
     const collectionRef = firestore.collection('collections');
-    // onSnapshot activates whenever the collectionRef updates or whenever this code is run for the first time
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+
+    fetch(
+      'https://firestore.googleapis.com/v1/projects/clothing-shop-8e2d2/databases/(default)/documents/collections'
+    )
+      .then(response => response.json())
+      .then(collections => console.log(collections));
+
+    collectionRef.get().then(snapshot => {
       const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
       updateCollections(collectionsMap);
       this.setState({ loading: false });
@@ -80,3 +86,15 @@ export default connect(
   null,
   mapDispatchToProps
 )(ShopPage);
+
+// ### BEFORE PROMISE LECTURE
+// componentDidMount() {
+//   const { updateCollections } = this.props;
+//   const collectionRef = firestore.collection('collections');
+//   // onSnapshot activates whenever the collectionRef updates or whenever this code is run for the first time
+//   this.unsubscribeFromSnapshot = collectionRef.onSnapshot(async snapshot => {
+//     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+//     updateCollections(collectionsMap);
+//     this.setState({ loading: false });
+//   });
+// }
